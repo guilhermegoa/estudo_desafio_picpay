@@ -1,0 +1,18 @@
+@Web_HostAddress = http://localhost:5187
+
+GET {{Web_HostAddress}}/User/All
+Accept: application/json
+
+###
+
+GET {{Web_HostAddress}}/User/1
+Accept: application/json
+
+###
+
+POST {{Web_HostAddress}}/User/Add
+Accept: application/json
+
+{
+   
+}
