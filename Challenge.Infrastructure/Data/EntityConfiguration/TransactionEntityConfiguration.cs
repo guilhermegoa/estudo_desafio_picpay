@@ -15,23 +15,31 @@ public class TransactionEntityConfiguration: IEntityTypeConfiguration<Transactio
             .HasKey(t => t.Id);
         
         entityTypeBuilder
-            .Property(u => u.Id)
-            .ValueGeneratedOnAdd();
-        
-        entityTypeBuilder
             .Property(t => t.Id)
+            .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
         entityTypeBuilder
             .Property(t => t.Amount)
+            .HasColumnName("amount")
             .IsRequired();
 
         entityTypeBuilder
+            .Property(t => t.SenderId)
+            .HasColumnName("sender_id");
+        
+        entityTypeBuilder
+            .Property(t => t.ReceiverId)
+            .HasColumnName("receiver_id");
+
+        entityTypeBuilder
             .Property(u => u.CreatedAt)
+            .HasColumnName("created_at")
             .HasDefaultValueSql("DATE('now')");
 
         entityTypeBuilder
             .Property(u => u.UpdatedAt)
+            .HasColumnName("updated_at")
             .HasDefaultValueSql("DATE('now')")
             .ValueGeneratedOnAddOrUpdate();
         
