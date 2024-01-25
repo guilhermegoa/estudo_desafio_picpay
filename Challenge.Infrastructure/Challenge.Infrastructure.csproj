@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Challenge.Application\Challenge.Application.csproj" />
-      <ProjectReference Include="..\Challenge.Domain\Challenge.Domain.csproj" />
     </ItemGroup>
 
 </Project>
