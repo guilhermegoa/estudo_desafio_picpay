@@ -1,3 +1,4 @@
+using Challenge.Application;
 using Challenge.Application.Services;
 using Challenge.Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -7,16 +8,16 @@ namespace Challenge.Presentation.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public sealed class UserController: ControllerBase
+public sealed class UserController : ControllerBase
 {
     private readonly IUserService _userService;
 
-    
+
     public UserController(IUserService userService)
     {
         _userService = userService;
     }
-    
+
     [HttpGet("id/{userId}")]
     [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserById([FromRoute] int userId)
@@ -25,7 +26,7 @@ public sealed class UserController: ControllerBase
 
         return Ok(users);
     }
-    
+
     [HttpGet("documnet/{userDocument}")]
     [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserByDocument([FromRoute] string userDocument)
@@ -34,13 +35,32 @@ public sealed class UserController: ControllerBase
 
         return Ok(users);
     }
-    
+
     [HttpPost("Add")]
-    [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
-    public async Task<IActionResult> AddUser(User toCreate)
+    [ProducesResponseType(typeof(ResponseUserDTO), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AddUser(RequestUserDTO requestUserDTO)
     {
-        var user = await _userService.AddUser(toCreate);
+        var user = await _userService.AddUser(requestUserDTO);
 
         return Ok(user);
     }
+
+    [HttpPut("Update")]
+    [ProducesResponseType(typeof(ResponseUserDTO), StatusCodes.Status200OK)]
+    public async Task<IActionResult> UpdateUser(RequestUserDTO requestUserDTO)
+    {
+        var user = await _userService.UpdateUser(requestUserDTO);
+
+        return Ok(user);
+    }
+
+    [HttpDelete("Delete/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteUser([FromRoute] int userId)
+    {
+        await _userService.DeleteUser(userId);
+
+        return Ok();
+    }
+
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Challenge.Infrastructure.Repositories;
 
-public class UserRepository: IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly SqlLiteContext _context;
 
@@ -18,7 +18,7 @@ public class UserRepository: IUserRepository
     {
         return await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
     }
-    
+
     public async Task<User> GetUserByDocument(string userDocument)
     {
         return await _context.User.FirstOrDefaultAsync(u => u.Document == userDocument);
@@ -38,8 +38,8 @@ public class UserRepository: IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task DeleteUser(int userId)
+    public async Task DeleteUser(int userId)
     {
-        throw new NotImplementedException();
+        await _context.Database.ExecuteSqlRawAsync("DELETE FROM User WHERE Id = {0}", userId);
     }
 }

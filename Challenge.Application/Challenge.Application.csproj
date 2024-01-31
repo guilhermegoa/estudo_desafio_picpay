@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <Folder Include="DTO\Transaction\" />
-      <Folder Include="DTO\User\" />
     </ItemGroup>
 
 </Project>

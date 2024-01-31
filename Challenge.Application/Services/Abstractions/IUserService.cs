@@ -5,12 +5,12 @@ namespace Challenge.Application.Services;
 public interface IUserService
 {
     Task<User> GetUserById(int userId);
-    
-    Task<User> GetUserByDocument(string userDocument);
-    
-    Task<User> AddUser(User toCreate);
 
-    Task<User> UpdateUser(int userId, string name, string email);
+    Task<User> GetUserByDocument(string userDocument);
+
+    Task<ResponseUserDTO> AddUser(RequestUserDTO requestUserDTO);
+
+    Task<ResponseUserDTO> UpdateUser(RequestUserDTO requestUserDTO);
 
     Task DeleteUser(int userId);
 }
