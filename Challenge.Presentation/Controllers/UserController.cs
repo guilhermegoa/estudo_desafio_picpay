@@ -27,7 +27,7 @@ public sealed class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("documnet/{userDocument}")]
+    [HttpGet("document/{userDocument}")]
     [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserByDocument([FromRoute] string userDocument)
     {
