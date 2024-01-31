@@ -16,12 +16,16 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetUserById(int userId)
     {
-        return await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+
+        return user ?? throw new Exception("User not found.");
     }
 
     public async Task<User> GetUserByDocument(string userDocument)
     {
-        return await _context.User.FirstOrDefaultAsync(u => u.Document == userDocument);
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Document == userDocument);
+
+        return user ?? throw new Exception("User not found.");
     }
 
     public async Task<User> AddUser(User toCreate)
@@ -33,13 +37,30 @@ public class UserRepository : IUserRepository
         return toCreate;
     }
 
-    public Task<User> UpdateUser(int userId, string name, string email)
+    public async Task<User> UpdateUser(int userId, string name, string email)
     {
-        throw new NotImplementedException();
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user is not null)
+        {
+            user.Name = name;
+            user.Email = email;
+
+            await _context.SaveChangesAsync();
+        }
+
+        return user ?? throw new Exception("User not found.");
     }
 
     public async Task DeleteUser(int userId)
     {
-        await _context.Database.ExecuteSqlRawAsync("DELETE FROM User WHERE Id = {0}", userId);
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user is not null)
+        {
+            _context.User.Remove(user);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -11,7 +11,10 @@ public record ResponseUserDTO(
     string Password,
     double Balance,
     UserType UserType,
-    ICollection<Transaction> SentTransactions);
+    ICollection<Transaction> SentTransactions
+);
+
+public record RequestUpdateUserDTO(string Name, string Email, int Id);
 
 public static class UserDTOExtensions
 {

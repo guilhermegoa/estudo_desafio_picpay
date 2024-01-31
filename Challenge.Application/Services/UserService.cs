@@ -31,14 +31,15 @@ public sealed class UserService : IUserService
         return user.ToDTO();
     }
 
-    public Task<ResponseUserDTO> UpdateUser(RequestUserDTO requestUserDTO)
+    public async Task<ResponseUserDTO> UpdateUser(RequestUpdateUserDTO requestUpdateUserDTO)
     {
+        var user = await _userRepository.UpdateUser(
+            requestUpdateUserDTO.Id,
+            requestUpdateUserDTO.Name,
+            requestUpdateUserDTO.Email
+        );
 
-        // var toUpdate = requestUserDTO.ToEntity();
-
-        // var user = _userRepository.UpdateUser(toUpdate);
-
-        throw new NotImplementedException();
+        return user.ToDTO();
     }
 
     public async Task DeleteUser(int personId)

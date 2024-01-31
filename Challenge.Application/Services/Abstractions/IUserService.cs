@@ -10,7 +10,7 @@ public interface IUserService
 
     Task<ResponseUserDTO> AddUser(RequestUserDTO requestUserDTO);
 
-    Task<ResponseUserDTO> UpdateUser(RequestUserDTO requestUserDTO);
+    Task<ResponseUserDTO> UpdateUser(RequestUpdateUserDTO requestUpdateUserDTO);
 
     Task DeleteUser(int userId);
 }

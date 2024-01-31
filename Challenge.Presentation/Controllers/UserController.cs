@@ -47,9 +47,9 @@ public sealed class UserController : ControllerBase
 
     [HttpPut("Update")]
     [ProducesResponseType(typeof(ResponseUserDTO), StatusCodes.Status200OK)]
-    public async Task<IActionResult> UpdateUser(RequestUserDTO requestUserDTO)
+    public async Task<IActionResult> UpdateUser(RequestUpdateUserDTO requestUpdateUserDTO)
     {
-        var user = await _userService.UpdateUser(requestUserDTO);
+        var user = await _userService.UpdateUser(requestUpdateUserDTO);
 
         return Ok(user);
     }
